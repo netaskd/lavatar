@@ -56,7 +56,7 @@ def update_md5db_thread():
 
             for mailaddr in mailaddresses:
                 ttl = int(app.config['MD5DB_ENTRY_TTL'])
-                mail_md5 = hashlib.md5(mailaddr.encode('utf-8')).hexdigest()
+                mail_md5 = hashlib.md5(mailaddr.encode('utf-8').lower()).hexdigest()
                 if not redis_store.exists(mail_md5):
                     redis_store.set(mail_md5, user.dn)
                     redis_store.expire(mail_md5, ttl)
